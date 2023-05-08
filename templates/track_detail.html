@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ track.name }}</h1>
+    <h2>by {{ artist.name }}</h2>
+    <img src="{{ track.album.images[1].url }}" alt="Album cover">
+    <p>Genres: {{ artist.genres | join(', ') }}</p>
+    <a href="{{ track.external_urls.spotify }}">Listen on Spotify</a>
+  </div>
+{% endblock %}

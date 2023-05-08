@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <title>Search Results</title>
+</head>
+<body>
+    <a href="{{ url_for('index') }}">Search again</a>
+    <div class="container results-container">
+        <h1>Search Results</h1>
+        <div class="results-grid">
+            {% for track in tracks %}
+            <div class="result-card">
+                <a href="{{ track.external_urls.spotify }}" target="_blank">
+                    <img src="{{ track.album.images[1].url }}" alt="Album Cover" class="album-cover">
+                </a>
+                <h3>{{ track.name }}</h3>
+                <p>Artist: {{ track.artists[0].name }}</p>
+                <p>Album: {{ track.album.name }}</p>
+            </div>
+            {% endfor %}
+            <div class="pagination">
+                <div>
+                    {% if page > 1 %}
+                        <a href="{{ url_for('search', query=query, page=page-1) }}">Previous</a>
+                    {% else %}
+                        <span class="disabled">Previous</span>
+                    {% endif %}
+                </div>
+                <div>
+                    {% if (tracks|length) >= results_per_page %}
+                        <a href="{{ url_for('search', query=query, page=page+1) }}">Next</a>
+                    {% else %}
+                        <span class="disabled">Next</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <a href="{{ url_for('index') }}">Search again</a>
+    </div>
+</body>
+</html>
